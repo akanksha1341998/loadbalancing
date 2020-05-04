@@ -12,7 +12,8 @@ class loadbalancer(Thread):
         self.so=socket.socket()
         self.so.connect(("localhost",self.port))
         data=self.so.recv(1024)
-        print(data.decode())
+        self.so.close()
+        #print(data.decode())
         self.conn.send(data)
         
         
