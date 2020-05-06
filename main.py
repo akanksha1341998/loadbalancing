@@ -1,7 +1,7 @@
 import socket
 from loadbalancer import loadbalancer 
 from server import server
-from threading import *
+#from threading import *
 connum=0
 host="localhost"
 port=12345
@@ -32,9 +32,6 @@ while True:
     conn,addr=s.accept()
     ad=4000+wt[connum%sum_wt]
     connum=connum+1
-    '''if ad==4002:
-        ad=4000
-    ad=ad+1'''
-    ld=loadbalancer(conn,ad)
+    ld=loadbalancer(conn,ad,addr)
     ld.start()
 

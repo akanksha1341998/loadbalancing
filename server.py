@@ -1,4 +1,5 @@
 import socket
+import os 
 from threading import * 
 class server(Thread):
     def __init__(self,port,weight):
@@ -16,6 +17,18 @@ class server(Thread):
         s.listen()
         while True:
             conn,addr=s.accept()
-           
-            conn.sendall("Hello client".encode()) 
-    
+            data=conn.recv(1024)
+            fname=data.decode()
+            
+            if os.path.isfile("TextFILES/"+fname):
+                conn.send("File exist".encode())
+                f=open("TextFILES/"+fname,"rb")
+                content=f.read()
+                conn.send(content)
+                f.close()
+            else:
+                conn.send ("File not exist".encode())
+            
+            
+             
+            
